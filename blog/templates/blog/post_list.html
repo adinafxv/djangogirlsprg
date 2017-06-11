@@ -1,29 +1,26 @@
-<!DOCTYPE html>
+{% extends 'blog/base.html' %}
 
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="DjangoGirls Prague Workshop">
-        <title>DjangoGirls Prague Workshop</title>
-    </head>
-
-    <body>
-
-    <main role="main">
-        <section class="content">
-            <h1>
-                <a href="#">Django Girls Blog</a>
-            </h1>
-
-            {% for post in posts %}
-        <div class="blogpost">
-            <h1><a href="">{{ post.title }}</a></h1>
-            <p>published: {{ post.published_date }}</p>
-            <p>{{ post.text|linebreaksbr }}</p>
-        </div>
-{% endfor %}
-        </section>
-    </main>
-    </body>
-</html>
+{% block content %}
+     <div class="row"> 
+        {% for post in posts %}
+                <div 
+                    class="
+                        blogpost 
+                        col-xs-12 
+                        col-sm-6 
+                        col-sm-offset-2 
+                        col-md-5 
+                        col-md-offset-0
+                        col-lg-4
+                        "
+                >
+                    <a href="{% url 'post_detail' pk=post.pk %}">
+                        <h2>{{ post.title }}</h2>
+                    </a>
+                    <p class="date">published: {{ post.published_date }}</p>
+                    <p>{{ post.text|linebreaksbr|truncatewords:80 }}</p>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+            
